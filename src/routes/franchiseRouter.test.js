@@ -19,7 +19,7 @@ beforeAll(async () => {
     testAdminId = loginRes.body.user.id;
 
     // Create a franchise
-    createRes = await createFranchise();
+    const createRes = await createFranchise();
     franchiseId = createRes.body.id;
 });
 
@@ -42,8 +42,8 @@ test('create store', async () => {
 
 test('delete store', async () => {
     const createRes = await createStore(franchiseId);
-    storeId = createRes.body.id;    
-    storeName = createRes.body.name;
+    const storeId = createRes.body.id;    
+    const storeName = createRes.body.name;
 
     const deleteRes = await request(app).delete(`/api/franchise/${franchiseId}/store/${storeId}`).set('Authorization', `Bearer ${testAdminAuthToken}`);
     expect(deleteRes.statusCode).toEqual(200);
