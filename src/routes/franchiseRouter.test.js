@@ -28,7 +28,6 @@ test('user franchise should exist after creation', async () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.length).toEqual(1);
     expect(res.body[0].id).toEqual(franchiseId);
-    expect(1).toEqual(2);
 });
 
 test('create store', async () => {
