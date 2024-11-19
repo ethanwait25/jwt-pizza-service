@@ -39,7 +39,9 @@ test('create and get created order', async () => {
 
     // Create order
     const order = { franchiseId, storeId, items: [ newMenuItem ] };
+    console.log(order);
     const createOrderRes = await request(app).post('/api/order').set('Authorization', `Bearer ${testAdminAuthToken}`).send(order);
+    console.log(createOrderRes.body);
     order.id = createOrderRes.body.order.id;
     expect(createOrderRes.statusCode).toEqual(200);
     expect(createOrderRes.body.order).toEqual(order);

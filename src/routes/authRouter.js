@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config.js');
 const { asyncHandler } = require('../endpointHelper.js');
 const { DB, Role } = require('../database/database.js');
+const metrics = require('../metrics.js');
 
 const authRouter = express.Router();
 
@@ -73,6 +74,8 @@ authRouter.post(
     }
     const user = await DB.addUser({ name, email, password, roles: [{ role: Role.Diner }] });
     const auth = await setAuth(user);
+    metrics.incrementActiveUsers();
+    metrics.incrementSuccessfulAuth();
     res.json({ user: user, token: auth });
   })
 );
@@ -84,6 +87,8 @@ authRouter.put(
     const { email, password } = req.body;
     const user = await DB.getUser(email, password);
     const auth = await setAuth(user);
+    metrics.incrementActiveUsers();
+    metrics.incrementSuccessfulAuth();
     res.json({ user: user, token: auth });
   })
 );
@@ -94,6 +99,7 @@ authRouter.delete(
   authRouter.authenticateToken,
   asyncHandler(async (req, res) => {
     await clearAuth(req);
+    metrics.decrementActiveUsers();
     res.json({ message: 'logout successful' });
   })
 );
@@ -114,6 +120,11 @@ authRouter.put(
     res.json(updatedUser);
   })
 );
+
+authRouter.use((err, req, res, next) => {
+  metrics.incrementFailedAuth();
+  next(err);
+});
 
 async function setAuth(user) {
   const token = jwt.sign(user, config.jwtSecret);

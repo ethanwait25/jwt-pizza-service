@@ -4,6 +4,7 @@ const orderRouter = require('./routes/orderRouter.js');
 const franchiseRouter = require('./routes/franchiseRouter.js');
 const version = require('./version.json');
 const config = require('./config.js');
+const metrics = require('./metrics.js');
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,17 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 });
+
+app.use((req, res, next) => {
+  const startTime = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - startTime;
+    metrics.setServiceLatency(duration);
+  });
+  next();
+});
+
+app.use(metrics.requestTracker.bind(metrics));
 
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
