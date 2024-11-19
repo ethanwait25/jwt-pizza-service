@@ -58,6 +58,8 @@ orderRouter.put(
       throw new StatusCodeError('unable to add menu item', 403);
     }
 
+    console.log('addMenuItem request body:', req.body);
+
     const addMenuItemReq = req.body;
     await DB.addMenuItem(addMenuItemReq);
     res.send(await DB.getMenu());
@@ -79,11 +81,12 @@ orderRouter.post(
   authRouter.authenticateToken,
   asyncHandler(async (req, res) => {
     const orderReq = req.body;
-    console.log(orderReq);
+    console.log("createOrder request body:", orderReq);
     const order = await DB.addDinerOrder(req.user, orderReq);
 
     const startTime = Date.now();
 
+    console.log('createOrder request body:', order);
     const r = await fetch(`${config.factory.url}/api/order`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', authorization: `Bearer ${config.factory.apiKey}` },
@@ -96,6 +99,7 @@ orderRouter.post(
 
     if (r.ok) {
       metrics.getOrderMetrics(order);
+      console.log("Returning order:", order);
       res.send({ order, jwt: j.jwt, reportUrl: j.reportUrl });
     } else {
       metrics.incrementFailedCreations();
