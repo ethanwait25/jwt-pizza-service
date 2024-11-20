@@ -79,7 +79,6 @@ orderRouter.post(
   authRouter.authenticateToken,
   asyncHandler(async (req, res) => {
     const orderReq = req.body;
-    console.log(orderReq);
     const order = await DB.addDinerOrder(req.user, orderReq);
 
     const startTime = Date.now();

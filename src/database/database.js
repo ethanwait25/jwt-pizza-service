@@ -23,6 +23,7 @@ class DB {
     const connection = await this.getConnection();
     try {
       const addResult = await this.query(connection, `INSERT INTO menu (title, description, image, price) VALUES (?, ?, ?, ?)`, [item.title, item.description, item.image, item.price]);
+      console.log("addMenuItem addResult id", addResult.insertId);
       return { ...item, id: addResult.insertId };
     } finally {
       connection.end();
@@ -148,8 +149,8 @@ class DB {
       const orderResult = await this.query(connection, `INSERT INTO dinerOrder (dinerId, franchiseId, storeId, date) VALUES (?, ?, ?, now())`, [user.id, order.franchiseId, order.storeId]);
       const orderId = orderResult.insertId;
       for (const item of order.items) {
-        const menuId = await this.getID(connection, 'id', item.menuId, 'menu');
-        await this.query(connection, `INSERT INTO orderItem (orderId, menuId, description, price) VALUES (?, ?, ?, ?)`, [orderId, menuId, item.description, item.price]);
+        const id = await this.getID(connection, 'id', item.id, 'menu');
+        await this.query(connection, `INSERT INTO orderItem (orderId, menuId, description, price) VALUES (?, ?, ?, ?)`, [orderId, id, item.description, item.price]);
       }
       return { ...order, id: orderId };
     } finally {
