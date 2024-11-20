@@ -20,14 +20,11 @@ beforeAll(async () => {
     // Add menu item
     newMenuItem = { title: randomName(), description: "Test", image: 'test.png', price: 0.0001 };
     const addMenuRes = await request(app).put('/api/order/menu').set('Authorization', `Bearer ${testAdminAuthToken}`).send(newMenuItem);
-    console.log("addMenuRes", addMenuRes.body);
     newMenuItem.id = addMenuRes.body.find(item => item.title === newMenuItem.title).id;
-    console.log('newMenuItem:', newMenuItem);
 });
 
 test('user menu item should exist after creation', async () => {
     const getRes = await request(app).get('/api/order/menu');
-    console.log(getRes.body);
     expect(getRes.body).toContainEqual(newMenuItem);
 });
 

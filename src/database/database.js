@@ -23,7 +23,6 @@ class DB {
     const connection = await this.getConnection();
     try {
       const addResult = await this.query(connection, `INSERT INTO menu (title, description, image, price) VALUES (?, ?, ?, ?)`, [item.title, item.description, item.image, item.price]);
-      console.log("addMenuItem addResult id", addResult.insertId);
       return { ...item, id: addResult.insertId };
     } finally {
       connection.end();

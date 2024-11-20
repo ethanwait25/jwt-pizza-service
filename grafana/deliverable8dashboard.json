@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 13,
+  "id": 16,
   "links": [],
   "panels": [
     {
@@ -80,7 +80,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"delete\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"delete\"}"
             },
             "properties": [
               {
@@ -92,7 +92,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"get\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"get\"}"
             },
             "properties": [
               {
@@ -104,7 +104,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"post\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"post\"}"
             },
             "properties": [
               {
@@ -116,7 +116,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"put\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"put\"}"
             },
             "properties": [
               {
@@ -128,7 +128,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"total_requests\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"total_requests\"}"
             },
             "properties": [
               {
@@ -194,7 +194,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(request_total{source=\"jwt-pizza-service-dev\"}[1m])",
+          "expr": "rate(request_total{source=\"jwt-pizza-service\"}[1m])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -268,7 +268,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"failed\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"failed\"}"
             },
             "properties": [
               {
@@ -280,7 +280,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"success\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"success\"}"
             },
             "properties": [
               {
@@ -346,7 +346,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(auth_total{source=\"jwt-pizza-service-dev\"}[1m])",
+          "expr": "rate(auth_total{source=\"jwt-pizza-service\"}[1m])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -388,7 +388,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"sold\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"sold\"}"
             },
             "properties": [
               {
@@ -430,7 +430,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(purchase_total{type=\"sold\", source=\"jwt-pizza-service-dev\"}[1m])",
+          "expr": "rate(purchase_total{type=\"sold\", source=\"jwt-pizza-service\"}[1m])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -503,7 +503,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"failed\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"failed\"}"
             },
             "properties": [
               {
@@ -515,7 +515,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"sold\"}"
+              "options": "{__proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"sold\"}"
             },
             "properties": [
               {
@@ -581,7 +581,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "rate(purchase_total{type!~\"revenue\", source=\"jwt-pizza-service-dev\"}[1m])",
+          "expr": "rate(purchase_total{type!~\"revenue\", source=\"jwt-pizza-service\"}[1m])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -655,7 +655,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"user_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"active_users\"}"
+              "options": "{__name__=\"user_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"active_users\"}"
             },
             "properties": [
               {
@@ -706,7 +706,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "user_total{source=\"jwt-pizza-service-dev\"}",
+          "expr": "user_total{source=\"jwt-pizza-service\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -723,6 +723,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "Latency of the most recent HTTP request",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -781,7 +782,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"latency_service\"}"
+              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"latency_service\"}"
             },
             "properties": [
               {
@@ -796,7 +797,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"latency_service\"}"
+              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"latency_service\"}"
             },
             "properties": [
               {
@@ -832,7 +833,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "system_total{source=\"jwt-pizza-service-dev\", type=\"latency_service\"}",
+          "expr": "system_total{source=\"jwt-pizza-service\", type=\"latency_service\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -849,6 +850,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "Latency of the most recent purchase",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -907,7 +909,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"latency_pizza\"}"
+              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"latency_pizza\"}"
             },
             "properties": [
               {
@@ -958,7 +960,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "system_total{source=\"jwt-pizza-service-dev\", type=\"latency_pizza\"}",
+          "expr": "system_total{source=\"jwt-pizza-service\", type=\"latency_pizza\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -1003,7 +1005,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"cpu\"}"
+              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"cpu\"}"
             },
             "properties": [
               {
@@ -1042,7 +1044,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "system_total{source=\"jwt-pizza-service-dev\", type=\"cpu\"}",
+          "expr": "system_total{source=\"jwt-pizza-service\", type=\"cpu\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -1083,7 +1085,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service-dev\", type=\"memory\"}"
+              "options": "{__name__=\"system_total\", __proxy_source__=\"influx\", source=\"jwt-pizza-service\", type=\"memory\"}"
             },
             "properties": [
               {
@@ -1122,7 +1124,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "system_total{source=\"jwt-pizza-service-dev\", type=\"memory\"}",
+          "expr": "system_total{source=\"jwt-pizza-service\", type=\"memory\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -1148,8 +1150,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Pizza Dashboard (Dev)",
-  "uid": "fe320yohxc000d",
-  "version": 38,
+  "title": "Pizza Dashboard",
+  "uid": "ee4gdic4sdptse",
+  "version": 4,
   "weekStart": ""
 }
