@@ -20,6 +20,7 @@ beforeAll(async () => {
     // Add menu item
     newMenuItem = { title: randomName(), description: "Test", image: 'test.png', price: 0.0001 };
     const addMenuRes = await request(app).put('/api/order/menu').set('Authorization', `Bearer ${testAdminAuthToken}`).send(newMenuItem);
+    console.log("addMenuRes", addMenuRes.body);
     newMenuItem.id = addMenuRes.body.find(item => item.title === newMenuItem.title).id;
 });
 
@@ -38,7 +39,8 @@ test('create and get created order', async () => {
     const storeId = createStoreRes.body.id;
 
     // Create order
-    const order = { franchiseId, storeId, items: [ newMenuItem ] };
+    let requestedMenuItem = { ...newMenuItem, menuId: newMenuItem.id };
+    const order = { franchiseId, storeId, items: [ requestedMenuItem ] };
     console.log(order);
     const createOrderRes = await request(app).post('/api/order').set('Authorization', `Bearer ${testAdminAuthToken}`).send(order);
     console.log(createOrderRes.body);

@@ -53,7 +53,8 @@ class Metrics {
   }
 
   decrementActiveUsers() {
-    this.activeUsers--;
+    if (this.activeUsers > 0)
+      this.activeUsers--;
   }
 
   incrementSuccessfulAuth() {
