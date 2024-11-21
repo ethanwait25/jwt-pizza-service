@@ -4,6 +4,13 @@ class Logger {
   httpLogger = (req, res, next) => {
     let send = res.send;
     const path = req.path;
+
+    // Skip logging for health check
+    if (path === "/" && req.method === "GET") {
+      next();
+      return;
+    }
+
     res.send = (resBody) => {
       const logData = {
         authorized: !!req.headers.authorization,
