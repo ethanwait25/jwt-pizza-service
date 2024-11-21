@@ -4,6 +4,7 @@ const { Role, DB } = require('../database/database.js');
 const { authRouter } = require('./authRouter.js');
 const { asyncHandler, StatusCodeError } = require('../endpointHelper.js');
 const metrics = require("../metrics.js");
+const logger = require('../logger.js');
 
 const orderRouter = express.Router();
 
@@ -80,6 +81,9 @@ orderRouter.post(
   asyncHandler(async (req, res) => {
     const orderReq = req.body;
     const order = await DB.addDinerOrder(req.user, orderReq);
+
+    const orderInfo = { diner: { id: req.user.id, name: req.user.name, email: req.user.email }, order };
+    logger.log('info', 'factory', { request: JSON.stringify(orderInfo) });
 
     const startTime = Date.now();
 
