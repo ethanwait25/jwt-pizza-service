@@ -40,7 +40,6 @@ test('create and get created order', async () => {
     // Create order
     let requestedMenuItem = { ...newMenuItem, menuId: newMenuItem.id };
     const order = { franchiseId, storeId, items: [ requestedMenuItem ] };
-    console.log(order);
     const createOrderRes = await request(app).post('/api/order').set('Authorization', `Bearer ${testAdminAuthToken}`).send(order);
     order.id = createOrderRes.body.order.id;
     expect(createOrderRes.statusCode).toEqual(200);
