@@ -89,8 +89,8 @@ class DB {
         params.push(`email='${email}'`);
       }
       if (params.length > 0) {
-        const query = `UPDATE user SET ${params.join(', ')} WHERE id=${userId}`;
-        await this.query(connection, query);
+        const query = `UPDATE user SET ${params.map(() => "?").join(", ")} WHERE id=?`;
+        await this.query(connection, query, [...params, userId]);
       }
       return this.getUser(email, password);
     } finally {
