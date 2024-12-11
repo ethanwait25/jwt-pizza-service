@@ -80,6 +80,7 @@ orderRouter.post(
   authRouter.authenticateToken,
   asyncHandler(async (req, res) => {
     const orderReq = req.body;
+    await validateOrder(orderReq);
     const order = await DB.addDinerOrder(req.user, orderReq);
 
     const orderInfo = { diner: { id: req.user.id, name: req.user.name, email: req.user.email }, order };
@@ -106,5 +107,20 @@ orderRouter.post(
     }
   })
 );
+
+async function validateOrder(order) {
+  const items = await DB.getMenu();
+  const prices = {};
+
+  for (const item of items) {
+    prices[item.id] = item.price;
+  }
+
+  for (orderItem of order.items) {
+    if (prices[orderItem.menuId] !== orderItem.price) {
+      throw new StatusCodeError('invalid price');
+    }
+  }
+}
 
 module.exports = orderRouter;
