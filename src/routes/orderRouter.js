@@ -116,7 +116,7 @@ async function validateOrder(order) {
     prices[item.id] = item.price;
   }
 
-  for (orderItem of order.items) {
+  for (const orderItem of order.items) {
     if (prices[orderItem.menuId] !== orderItem.price) {
       throw new StatusCodeError('invalid price');
     }

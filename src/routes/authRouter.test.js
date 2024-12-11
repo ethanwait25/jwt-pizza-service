@@ -21,6 +21,7 @@ test('login', async () => {
   checkTokenFormat(loginRes.body.token);
 
   const { password, ...user } = { ...testUser, roles: [{ role: 'diner' }] };
+  console.log(password);
   expect(loginRes.body.user).toMatchObject(user);
 });
 
@@ -31,6 +32,7 @@ test('register', async () => {
   checkTokenFormat(registerRes.body.token);
 
   const { password, ...userNoPassword } = user;
+  console.log(password);
   expect(registerRes.body.user).toMatchObject(userNoPassword);
 
   // Login with new user should succeed
