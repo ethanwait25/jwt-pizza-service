@@ -80,18 +80,21 @@ class DB {
   async updateUser(userId, email, password) {
     const connection = await this.getConnection();
     try {
-      const params = [];
+      const keys = [];
+      const values = [];
       if (password) {
         const hashedPassword = await bcrypt.hash(password, 10);
-        params.push(`password='${hashedPassword}'`);
+        keys.push(`password`);
+        values.push(hashedPassword);
       }
       if (email) {
-        params.push(`email='${email}'`);
+        keys.push(`email`);
+        values.push(email);
       }
       if (params.length > 0) {
-        const query = `UPDATE user SET ${params.map((key) => `${key}=?`).join(", ")} WHERE id=?`;
+        const query = `UPDATE user SET ${keys.map((key) => `${key}=?`).join(", ")} WHERE id=?`;
         console.log("doing the query", query, params, userId);
-        await this.query(connection, query, [...params, userId]);
+        await this.query(connection, query, [...values, userId]);
       }
       return this.getUser(email, password);
     } finally {
