@@ -89,7 +89,7 @@ class DB {
         params.push(`email='${email}'`);
       }
       if (params.length > 0) {
-        const query = `UPDATE user SET ${params.map(() => "?").join(", ")} WHERE id=?`;
+        const query = `UPDATE user SET ${params.map((key) => `${key}=?`).join(", ")} WHERE id=?`;
         await this.query(connection, query, [...params, userId]);
       }
       return this.getUser(email, password);
@@ -133,7 +133,7 @@ class DB {
     const connection = await this.getConnection();
     try {
       const offset = this.getOffset(page, config.db.listPerPage);
-      const orders = await this.query(connection, `SELECT id, franchiseId, storeId, date FROM dinerOrder WHERE dinerId=? LIMIT ?,?`, [user.id, offset, config.db.listPerPage]);
+      const orders = await this.query(connection, `SELECT id, franchiseId, storeId, date FROM dinerOrder WHERE dinerId=? LIMIT ${offset},${config.db.listPerPage}`, [user.id]);
       for (const order of orders) {
         let items = await this.query(connection, `SELECT id, menuId, description, price FROM orderItem WHERE orderId=?`, [order.id]);
         order.items = items;
@@ -293,7 +293,7 @@ class DB {
   }
 
   async getID(connection, key, value, table) {
-    const [rows] = await connection.execute(`SELECT id FROM ? WHERE ?=?`, [table, key, value]);
+    const [rows] = await connection.execute(`SELECT id FROM ${table} WHERE ${key}=?`, [value]);
     if (rows.length > 0) {
       return rows[0].id;
     }
