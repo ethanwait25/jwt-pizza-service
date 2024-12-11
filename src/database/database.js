@@ -90,6 +90,7 @@ class DB {
       }
       if (params.length > 0) {
         const query = `UPDATE user SET ${params.map((key) => `${key}=?`).join(", ")} WHERE id=?`;
+        console.log("doing the query", query, params, userId);
         await this.query(connection, query, [...params, userId]);
       }
       return this.getUser(email, password);
