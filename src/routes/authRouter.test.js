@@ -54,6 +54,8 @@ test('update user', async () => {
   const adminAuthToken = adminLoginRes.body.token;
 
   // Updating user email and password should succeed
+  console.log(adminUser);
+  console.log(adminLoginRes.body.user.id);
   const updateRes = await request(app).put(`/api/auth/${adminLoginRes.body.user.id}`).set('Authorization', `Bearer ${adminAuthToken}`).send({ email: 'new@new.com', password: 'newpass' });
   console.log(updateRes.body);
   expect(updateRes.status).toBe(200);
