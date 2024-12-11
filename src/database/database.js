@@ -91,9 +91,9 @@ class DB {
         keys.push(`email`);
         values.push(email);
       }
-      if (params.length > 0) {
+      if (keys.length > 0) {
         const query = `UPDATE user SET ${keys.map((key) => `${key}=?`).join(", ")} WHERE id=?`;
-        console.log("doing the query", query, params, userId);
+        console.log("doing the query", query, keys, values, userId);
         await this.query(connection, query, [...values, userId]);
       }
       return this.getUser(email, password);
